@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Expense Approval</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+      h1 { font-size: 1.4rem; }
+      form { display: flex; gap: 0.5rem; align-items: end; flex-wrap: wrap; margin-bottom: 1rem; }
+      label { display: flex; flex-direction: column; font-size: 0.8rem; gap: 0.2rem; }
+      input, select, button { padding: 0.4rem 0.6rem; font-size: 0.9rem; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { text-align: left; padding: 0.4rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; }
+      .status-Pending { color: #a06500; }
+      .status-Approved { color: #1a7f37; }
+      .status-Rejected { color: #b3261e; }
+      .error { color: #b3261e; font-size: 0.85rem; min-height: 1.2rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Expense Approval</h1>
+
+    <form id="submit-form">
+      <label>Amount
+        <input id="amount" name="amount" type="number" step="0.01" data-testid="amount" />
+      </label>
+      <label>Category
+        <select id="category" name="category" data-testid="category">
+          <option>Travel</option>
+          <option>Meals</option>
+          <option>Equipment</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label>Approve as
+        <select id="approver-role" data-testid="approver-role">
+          <option value="Employee">Employee</option>
+          <option value="Manager">Manager</option>
+        </select>
+      </label>
+      <button type="submit" data-testid="submit">Submit expense</button>
+    </form>
+
+    <div class="error" id="error" data-testid="error"></div>
+
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Amount</th><th>Category</th><th>Status</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="rows" data-testid="rows"></tbody>
+    </table>
+
+    <script src="app.js"></script>
+  </body>
+</html>
