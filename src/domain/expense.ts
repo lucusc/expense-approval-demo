@@ -33,7 +33,6 @@ export interface SubmitInput {
 export class ValidationError extends Error {}
 export class WorkflowError extends Error {}
 
-/** R2 + R3: amount bounds and category membership. */
 export function validate(input: SubmitInput): void {
   if (typeof input.amount !== 'number' || Number.isNaN(input.amount)) {
     throw new ValidationError('Amount must be a number');
@@ -49,7 +48,6 @@ export function validate(input: SubmitInput): void {
   }
 }
 
-/** R1: a submitted expense starts Pending. */
 export function submit(input: SubmitInput): Expense {
   validate(input);
   return {
@@ -62,12 +60,10 @@ export function submit(input: SubmitInput): Expense {
   };
 }
 
-/** R6: expenses over 1,000 require a Manager. */
 export function requiresManager(amount: number): boolean {
   return amount >= MANAGER_THRESHOLD;
 }
 
-/** R4 + R5 + R6: approve a Pending expense. */
 export function approve(expense: Expense, approver: User): Expense {
   if (expense.status !== 'Pending') {
     throw new WorkflowError('Only a Pending expense can be approved');
@@ -81,7 +77,6 @@ export function approve(expense: Expense, approver: User): Expense {
   return { ...expense, status: 'Approved', approverId: approver.id };
 }
 
-/** R7: reject a Pending expense with a required reason. */
 export function reject(expense: Expense, approver: User, reason: string): Expense {
     if (!reason || reason.trim() === '') {
     throw new ValidationError('A reason is required to reject');

@@ -32,7 +32,6 @@ export function createApp(db: Db = createDb()) {
   app.use(express.json());
   app.use(express.static(path.join(__dirname, '../web')));
 
-  // R1/R2/R3 — submit
   app.post('/expenses', (req, res) => {
     try {
       const expense = domain.submit({
@@ -51,7 +50,7 @@ export function createApp(db: Db = createDb()) {
     res.json(db.all());
   });
 
-  // R4/R5/R6 — approve
+
   app.post('/expenses/:id/approve', (req, res) => {
     const row = db.get(Number(req.params.id));
     if (!row) {
@@ -70,7 +69,6 @@ export function createApp(db: Db = createDb()) {
     }
   });
 
-  // R7 — reject
   app.post('/expenses/:id/reject', (req, res) => {
     const row = db.get(Number(req.params.id));
     if (!row) {

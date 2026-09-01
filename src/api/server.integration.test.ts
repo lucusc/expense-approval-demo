@@ -8,10 +8,9 @@ import { createApp } from './server';
 
 /**
  * SEED integration test - proves the harness only (real Express app and a
- * disk-backed temporary SQLite database). During the session, Copilot expands
- * this from openapi.yaml + db.ts and surfaces planted defect #2.
+ * disk-backed temporary SQLite database).
  */
-describe('API (seed harness)', () => {
+describe('API Tests', () => {
   let db: Db;
   let tempDirectory: string;
 
