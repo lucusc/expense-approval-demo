@@ -14,6 +14,7 @@
     "test:integration:coverage": "vitest run --config vitest.integration.config.mts --coverage",
     "test:coverage": "npm run test:unit && npm run test:integration:coverage",
     "test:e2e": "playwright test",
+    "test:e2e:report": "playwright show-report",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
