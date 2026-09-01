@@ -51,6 +51,17 @@ export function createApp(db: Db = createDb()) {
   });
 
 
+  app.get('/expenses/search', (req, res) => {
+    console.log('search request', req.query);
+    const submitterId = req.query.submitterId as string;
+    const status = req.query.status as string;
+    const minAmount = parseInt(req.query.minAmount as string);
+    const limit = Number(req.query.limit) || 20;
+    const page = Number(req.query.page) || 1;
+    const rows = db.search({ submitterId, status, minAmount, limit, page });
+    res.json(rows.map(rowToExpense));
+  });
+
   app.post('/expenses/:id/approve', (req, res) => {
     const row = db.get(Number(req.params.id));
     if (!row) {

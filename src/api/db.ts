@@ -43,6 +43,21 @@ export function createDb(file = ':memory:') {
     all(): ExpenseRow[] {
       return db.prepare('SELECT * FROM expenses ORDER BY id DESC').all() as unknown as ExpenseRow[];
     },
+    search(filter: {
+      submitterId?: string;
+      status?: string;
+      minAmount?: number;
+      limit: number;
+      page: number;
+    }): ExpenseRow[] {
+      let sql = 'SELECT * FROM expenses WHERE 1=1';
+      if (filter.submitterId) sql += " AND submitterId = '" + filter.submitterId + "'";
+      if (filter.status) sql += " AND status = '" + filter.status + "'";
+      if (filter.minAmount !== undefined) sql += ' AND amount >= ' + filter.minAmount;
+      const offset = filter.page * filter.limit; // page is 1-based
+      sql += ' ORDER BY id DESC LIMIT ' + filter.limit + ' OFFSET ' + offset;
+      return db.prepare(sql).all() as unknown as ExpenseRow[];
+    },
     update(id: number, e: Expense): void {
       db.prepare('UPDATE expenses SET status = ?, reason = ?, approverId = ? WHERE id = ?').run(
         e.status,
