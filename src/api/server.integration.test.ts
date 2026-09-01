@@ -52,4 +52,34 @@ describe('API Tests', () => {
     const list = await request(app).get('/expenses').expect(200);
     expect(list.body).toEqual([created.body]);
   });
+
+  it('cancels a submitted expense', async () => {
+    const app = createApp(db);
+
+    const created = await request(app)
+      .post('/expenses')
+      .send({ amount: 250, category: 'Travel', submitterId: 'alice' })
+      .expect(201);
+
+    const cancelled = await request(app)
+      .post(`/expenses/${created.body.id}/cancel`)
+      .send({ userId: 'alice' })
+      .expect(200);
+
+    expect(cancelled.body).toMatchObject({
+      id: created.body.id,
+      amount: 250,
+      category: 'Travel',
+      submitterId: 'alice',
+      status: 'Cancelled',
+      reason: null,
+      approverId: null,
+    });
+
+    expect(db.get(created.body.id)).toMatchObject({
+      status: 'Cancelled',
+      reason: null,
+      approverId: null,
+    });
+  });
 });

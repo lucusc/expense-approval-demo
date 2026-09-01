@@ -6,7 +6,7 @@ import {
   type Category,
 } from './policy';
 
-export type Status = 'Pending' | 'Approved' | 'Rejected';
+export type Status = 'Pending' | 'Approved' | 'Rejected' | 'Cancelled';
 export type Role = 'Employee' | 'Manager';
 
 export interface User {
@@ -82,4 +82,14 @@ export function reject(expense: Expense, approver: User, reason: string): Expens
     throw new ValidationError('A reason is required to reject');
   }
   return { ...expense, status: 'Rejected', approverId: approver.id, reason };
+}
+
+export function cancel(expense: Expense, user: User): Expense {
+  if (expense.status !== 'Pending') {
+    throw new WorkflowError('Only a Pending expense can be cancelled');
+  }
+  if (user.id !== expense.submitterId) {
+    throw new WorkflowError('Only the submitter can cancel their own expense');
+  }
+  return { ...expense, status: 'Cancelled' };
 }
