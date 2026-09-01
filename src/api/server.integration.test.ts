@@ -24,7 +24,7 @@ describe('API Tests', () => {
     rmSync(tempDirectory, { recursive: true, force: true });
   });
 
-  it('R1: persists a submitted expense and lists it as Pending', async () => {
+  it('persists a submitted expense and lists it as Pending', async () => {
     const app = createApp(db);
 
     const created = await request(app)

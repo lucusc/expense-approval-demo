@@ -16,7 +16,7 @@ paths:
                 type: array
                 items: { $ref: '#/components/schemas/Expense' }
     post:
-      summary: Submit an expense (R1/R2/R3)
+      summary: Submit an expense
       requestBody:
         required: true
         content:
@@ -31,7 +31,7 @@ paths:
         '400': { $ref: '#/components/responses/Error' }
   /expenses/{id}/approve:
     post:
-      summary: Approve a Pending expense (R4/R5/R6)
+      summary: Approve a Pending expense
       parameters:
         - in: path
           name: id
@@ -52,7 +52,7 @@ paths:
         '409': { $ref: '#/components/responses/Error' }
   /expenses/{id}/reject:
     post:
-      summary: Reject a Pending expense with a reason (R7)
+      summary: Reject a Pending expense with a reason
       parameters:
         - in: path
           name: id

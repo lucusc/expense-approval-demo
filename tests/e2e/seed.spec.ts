@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Expense submission', () => {
-  test('R1: a submitted expense appears as Pending', async ({ page }) => {
+  test('a submitted expense appears as Pending', async ({ page }) => {
     await page.goto('/');
 
     await page.getByLabel('Amount').fill('250');

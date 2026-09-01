@@ -46,6 +46,6 @@ npm test                           # complete local validation
 
 Coverage reports are written to `coverage/unit` and `coverage/integration`.
 
-## Users (for segregation-of-duties, R5)
+## Users (for segregation-of-duties)
 Submitter = `alice`, approver = `bob`. Use the **Approve as** dropdown to
-approve as `Manager` for amounts over 1,000 (R6).
+approve as `Manager`.
