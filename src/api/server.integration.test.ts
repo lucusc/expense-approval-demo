@@ -87,6 +87,7 @@ describe('API Tests', () => {
     const app = createApp(db);
 
     await request(app).post('/expenses/999/cancel').send({ userId: 'alice' }).expect(404);
+    await request(app).post('/expenses/not-a-number/cancel').send({ userId: 'alice' }).expect(404);
   });
 
   it('returns 409 when cancelling a non-Pending expense', async () => {

@@ -89,7 +89,12 @@ export function createApp(db: Db = createDb()) {
   });
 
   app.post('/expenses/:id/cancel', (req, res) => {
-    const row = db.get(Number(req.params.id));
+    const id = Number(req.params.id);
+    if (Number.isNaN(id)) {
+      res.status(404).json({ error: 'Not found' });
+      return;
+    }
+    const row = db.get(id);
     if (!row) {
       res.status(404).json({ error: 'Not found' });
       return;
