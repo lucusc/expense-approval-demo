@@ -15,7 +15,7 @@ describe('expense tests', () => {
   it('cancel withdraws a submitter-owned Pending expense', () => {
     const e = submit({ amount: 500, category: 'Meals', submitterId: 'alice' });
 
-    expect(cancel(e, { id: 'alice', role: 'Employee' })).toMatchObject({
+    expect(cancel(e, { id: 'alice' })).toMatchObject({
       status: 'Cancelled',
       submitterId: 'alice',
       approverId: null,
@@ -29,8 +29,8 @@ describe('expense tests', () => {
       status: 'Approved' as const,
     };
 
-    expect(() => cancel(e, { id: 'alice', role: 'Employee' })).toThrow(WorkflowError);
-    expect(() => cancel(e, { id: 'alice', role: 'Employee' })).toThrow(
+    expect(() => cancel(e, { id: 'alice' })).toThrow(WorkflowError);
+    expect(() => cancel(e, { id: 'alice' })).toThrow(
       'Only a Pending expense can be cancelled',
     );
   });
@@ -38,8 +38,8 @@ describe('expense tests', () => {
   it('cancel rejects a non-submitter user', () => {
     const e = submit({ amount: 500, category: 'Meals', submitterId: 'alice' });
 
-    expect(() => cancel(e, { id: 'bob', role: 'Employee' })).toThrow(WorkflowError);
-    expect(() => cancel(e, { id: 'bob', role: 'Employee' })).toThrow(
+    expect(() => cancel(e, { id: 'bob' })).toThrow(WorkflowError);
+    expect(() => cancel(e, { id: 'bob' })).toThrow(
       'Only the submitter can cancel their own expense',
     );
   });

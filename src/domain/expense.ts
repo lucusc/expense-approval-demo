@@ -84,7 +84,7 @@ export function reject(expense: Expense, approver: User, reason: string): Expens
   return { ...expense, status: 'Rejected', approverId: approver.id, reason };
 }
 
-export function cancel(expense: Expense, user: User): Expense {
+export function cancel(expense: Expense, user: Pick<User, 'id'>): Expense {
   if (expense.status !== 'Pending') {
     throw new WorkflowError('Only a Pending expense can be cancelled');
   }

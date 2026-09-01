@@ -97,7 +97,6 @@ export function createApp(db: Db = createDb()) {
     try {
       const updated = domain.cancel(rowToExpense(row), {
         id: req.body.userId,
-        role: 'Employee',
       });
       db.update(row.id, updated);
       res.json({ id: row.id, ...updated });
