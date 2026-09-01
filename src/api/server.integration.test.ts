@@ -82,4 +82,43 @@ describe('API Tests', () => {
       approverId: null,
     });
   });
+
+  it('returns 404 when cancelling an unknown expense', async () => {
+    const app = createApp(db);
+
+    await request(app).post('/expenses/999/cancel').send({ userId: 'alice' }).expect(404);
+  });
+
+  it('returns 409 when cancelling a non-Pending expense', async () => {
+    const app = createApp(db);
+
+    const created = await request(app)
+      .post('/expenses')
+      .send({ amount: 250, category: 'Travel', submitterId: 'alice' })
+      .expect(201);
+
+    await request(app)
+      .post(`/expenses/${created.body.id}/approve`)
+      .send({ approverId: 'bob', approverRole: 'Manager' })
+      .expect(200);
+
+    await request(app)
+      .post(`/expenses/${created.body.id}/cancel`)
+      .send({ userId: 'alice' })
+      .expect(409);
+  });
+
+  it('returns 409 when cancelling another submitter expense', async () => {
+    const app = createApp(db);
+
+    const created = await request(app)
+      .post('/expenses')
+      .send({ amount: 250, category: 'Travel', submitterId: 'alice' })
+      .expect(201);
+
+    await request(app)
+      .post(`/expenses/${created.body.id}/cancel`)
+      .send({ userId: 'bob' })
+      .expect(409);
+  });
 });
