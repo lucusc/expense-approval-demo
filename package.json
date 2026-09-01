@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "description": "Layered sample app for the GHCP Meaningful Tests lunch & learn (unit / integration / E2E).",
+  "engines": {
+    "node": ">=22.5"
+  },
   "scripts": {
     "start": "tsx src/api/start.ts",
-    "test:unit": "vitest run tests/unit --coverage",
-    "test:integration": "vitest run tests/integration",
+    "test": "npm run typecheck && npm run test:unit && npm run test:integration && npm run test:e2e",
+    "test:unit": "vitest run --config vitest.unit.config.mts --coverage",
+    "test:integration": "vitest run --config vitest.integration.config.mts",
+    "test:integration:coverage": "vitest run --config vitest.integration.config.mts --coverage",
+    "test:coverage": "npm run test:unit && npm run test:integration:coverage",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit"
   },
@@ -18,10 +24,10 @@
     "@types/express": "^4.17.21",
     "@types/node": "^22.10.0",
     "@types/supertest": "^6.0.2",
-    "@vitest/coverage-v8": "^2.0.5",
+    "@vitest/coverage-v8": "^4.1.11",
     "supertest": "^7.0.0",
     "tsx": "^4.16.0",
     "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "vitest": "^4.1.11"
   }
 }

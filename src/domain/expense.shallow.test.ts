@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { submit } from '../../src/domain/expense';
+import { submit } from './expense';
 
 /**
  * STARTER "shallow" tests — intentionally weak. These are the ones you critique
@@ -13,11 +13,11 @@ import { submit } from '../../src/domain/expense';
  * tests generated with Copilot from requirements.md + the coverage report.
  */
 describe('expense (shallow starter tests)', () => {
-  it('submit returns something', () => {
+  it('R1 anti-example: submit returns something', () => {
     expect(submit({ amount: 500, category: 'Travel', submitterId: 'alice' })).toBeDefined();
   });
 
-  it('submit sets a status', () => {
+  it('R1 anti-example: submit sets a truthy status', () => {
     const e = submit({ amount: 500, category: 'Meals', submitterId: 'alice' });
     expect(e.status).toBeTruthy();
   });

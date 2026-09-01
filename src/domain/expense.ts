@@ -64,12 +64,11 @@ export function submit(input: SubmitInput): Expense {
 
 /**
  * R6: expenses OVER 1,000 require a Manager.
- * NOTE (planted defect #1): the policy text says "over 1,000", but the exact
- * boundary (amount === 1000) is easy to get wrong and is not exercised by the
- * starter tests. Left intentionally for the coverage/requirement-gap demo.
+ * NOTE (planted defect #1): this intentionally uses >= instead of >. A
+ * requirement-grounded test at exactly 1,000 should fail and drive the fix.
  */
 export function requiresManager(amount: number): boolean {
-  return amount > MANAGER_THRESHOLD;
+  return amount >= MANAGER_THRESHOLD;
 }
 
 /** R4 + R5 + R6: approve a Pending expense. */
