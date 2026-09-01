@@ -2,7 +2,7 @@
   "name": "expense-approval-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "Layered sample app for the GHCP Meaningful Tests lunch & learn (unit / integration / E2E).",
+  "description": "Expense submission and approval application.",
   "engines": {
     "node": ">=22.5"
   },

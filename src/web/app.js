@@ -1,5 +1,4 @@
-// Minimal front-end for the demo. Two fixed users so segregation-of-duties (R5)
-// is demonstrable: submitter = "alice", approver = "bob".
+// The fixed users keep submitter and approver identities separate.
 const SUBMITTER = 'alice';
 const APPROVER = 'bob';
 

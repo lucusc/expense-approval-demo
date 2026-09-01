@@ -1,9 +1,5 @@
 # Expense Approval — Requirements
 
-These requirement IDs are the yardstick for "meaningful". Every generated test
-should trace to one of them; every requirement should be covered at the right
-layer(s).
-
 R1  A user can submit an expense (amount, category); it starts as Pending.
 R2  Amount must be > 0 and <= 10,000; invalid amounts are rejected with a clear error.
 R3  Category must be one of: Travel, Meals, Equipment, Other.

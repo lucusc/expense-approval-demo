@@ -62,11 +62,7 @@ export function submit(input: SubmitInput): Expense {
   };
 }
 
-/**
- * R6: expenses OVER 1,000 require a Manager.
- * NOTE (planted defect #1): this intentionally uses >= instead of >. A
- * requirement-grounded test at exactly 1,000 should fail and drive the fix.
- */
+/** R6: expenses over 1,000 require a Manager. */
 export function requiresManager(amount: number): boolean {
   return amount >= MANAGER_THRESHOLD;
 }
@@ -85,14 +81,9 @@ export function approve(expense: Expense, approver: User): Expense {
   return { ...expense, status: 'Approved', approverId: approver.id };
 }
 
-/**
- * R7: reject a Pending expense with a required reason.
- * NOTE (planted defect #2): this is MISSING the guard that blocks rejecting a
- * non-Pending (e.g. already Approved) expense. The integration demo surfaces
- * this because the persisted DB state can be changed after a decision.
- */
+/** R7: reject a Pending expense with a required reason. */
 export function reject(expense: Expense, approver: User, reason: string): Expense {
-  if (!reason || reason.trim() === '') {
+    if (!reason || reason.trim() === '') {
     throw new ValidationError('A reason is required to reject');
   }
   return { ...expense, status: 'Rejected', approverId: approver.id, reason };

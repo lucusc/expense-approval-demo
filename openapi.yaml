@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Expense Approval API
   version: 1.0.0
-  description: Contract used as the ground truth for integration tests.
+  description: API for submitting and deciding expenses.
 paths:
   /expenses:
     get:
