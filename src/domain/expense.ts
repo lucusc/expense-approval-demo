@@ -78,7 +78,10 @@ export function approve(expense: Expense, approver: User): Expense {
 }
 
 export function reject(expense: Expense, approver: User, reason: string): Expense {
-    if (!reason || reason.trim() === '') {
+  if (expense.status !== 'Pending') {
+    throw new WorkflowError('Only a Pending expense can be rejected');
+  }
+  if (!reason || reason.trim() === '') {
     throw new ValidationError('A reason is required to reject');
   }
   return { ...expense, status: 'Rejected', approverId: approver.id, reason };
