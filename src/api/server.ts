@@ -88,5 +88,23 @@ export function createApp(db: Db = createDb()) {
     }
   });
 
+  app.post('/expenses/:id/cancel', (req, res) => {
+    const row = db.get(Number(req.params.id));
+    if (!row) {
+      res.status(404).json({ error: 'Not found' });
+      return;
+    }
+    try {
+      const updated = domain.cancel(rowToExpense(row), {
+        id: req.body.userId,
+        role: req.body.userRole ?? 'Employee',
+      });
+      db.update(row.id, updated);
+      res.json({ id: row.id, ...updated });
+    } catch (err) {
+      handleError(err, res);
+    }
+  });
+
   return app;
 }

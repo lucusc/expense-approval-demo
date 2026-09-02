@@ -72,6 +72,27 @@ paths:
         '400': { $ref: '#/components/responses/Error' }
         '404': { $ref: '#/components/responses/Error' }
         '409': { $ref: '#/components/responses/Error' }
+  /expenses/{id}/cancel:
+    post:
+      summary: Withdraw a Pending expense as its submitter
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CancelInput' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Expense' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
 components:
   responses:
     Error:
@@ -86,7 +107,7 @@ components:
   schemas:
     Status:
       type: string
-      enum: [Pending, Approved, Rejected]
+      enum: [Pending, Approved, Rejected, Cancelled]
     SubmitInput:
       type: object
       required: [amount, category, submitterId]
@@ -107,6 +128,12 @@ components:
         approverId: { type: string }
         approverRole: { type: string, enum: [Employee, Manager] }
         reason: { type: string }
+    CancelInput:
+      type: object
+      required: [userId]
+      properties:
+        userId: { type: string }
+        userRole: { type: string, enum: [Employee, Manager] }
     Expense:
       type: object
       required: [id, amount, category, submitterId, status, reason, approverId]
