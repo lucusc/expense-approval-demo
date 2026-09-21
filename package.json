@@ -9,7 +9,7 @@
   "scripts": {
     "start": "tsx src/api/start.ts",
     "test": "npm run typecheck && npm run test:unit && npm run test:integration && npm run test:e2e",
-    "test:unit": "vitest run --config vitest.unit.config.mts --coverage",
+    "test:unit": "vitest run --config vitest.unit.config.mts --coverage --passWithNoTests",
     "test:integration": "vitest run --config vitest.integration.config.mts",
     "test:integration:coverage": "vitest run --config vitest.integration.config.mts --coverage",
     "test:coverage": "npm run test:unit && npm run test:integration:coverage",

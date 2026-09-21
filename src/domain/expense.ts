@@ -72,7 +72,7 @@ export function approve(expense: Expense, approver: User): Expense {
     throw new WorkflowError('You cannot approve your own expense');
   }
   if (requiresManager(expense.amount) && approver.role !== 'Manager') {
-    throw new WorkflowError('Expenses over 1,000 require a Manager to approve');
+    throw new WorkflowError('Manager approval is required for this amount');
   }
   return { ...expense, status: 'Approved', approverId: approver.id };
 }

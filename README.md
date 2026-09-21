@@ -9,7 +9,7 @@ Playwright (E2E). Node.js 22.5+ is required for the built-in SQLite API.
 
 ## Layout
 ```
-specs/                    # Functional requirements
+specs/                    # Test-planning workspace
 openapi.yaml              # API contract
 src/domain/               # Business rules and unit tests
 src/api/                  # Express, SQLite, and integration tests
