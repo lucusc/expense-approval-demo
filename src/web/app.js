@@ -61,10 +61,7 @@ rowsEl.addEventListener('click', async (ev) => {
 
   let res;
   if (btn.classList.contains('approve')) {
-    const statusEl = document.querySelector(`[data-testid="status-${id}"]`);
-    statusEl.textContent = 'Approved';
-    statusEl.className = 'status-Approved';
-    res = await fetch(`/expenses/${id}/approval`, {
+    res = await fetch(`/expenses/${id}/approve`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ approverId: user.id, approverRole: user.role }),
