@@ -11,7 +11,7 @@ export interface User {
 export class WorkflowError extends Error {}
 
 export function requiresManager(amount: number): boolean {
-  return amount >= MANAGER_THRESHOLD;
+  return amount > MANAGER_THRESHOLD;
 }
 
 export function approve(expense: Expense, approver: User): Expense {
