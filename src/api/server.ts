@@ -1,26 +1,27 @@
 import express, { type Response } from 'express';
 import path from 'path';
 import { createDb, type Db, type ExpenseRow } from './db';
-import * as domain from '../domain/expense';
+import * as expenseDomain from '../domain/expense';
+import * as approvalDomain from '../domain/approval';
 
-function rowToExpense(row: ExpenseRow): domain.Expense {
+function rowToExpense(row: ExpenseRow): expenseDomain.Expense {
   return {
     id: row.id,
     amount: row.amount,
-    category: row.category as domain.Expense['category'],
+    category: row.category as expenseDomain.Expense['category'],
     submitterId: row.submitterId,
-    status: row.status as domain.Status,
+    status: row.status as expenseDomain.Status,
     reason: row.reason,
     approverId: row.approverId,
   };
 }
 
 function handleError(err: unknown, res: Response): void {
-  if (err instanceof domain.ValidationError) {
+  if (err instanceof expenseDomain.ValidationError) {
     res.status(400).json({ error: err.message });
     return;
   }
-  if (err instanceof domain.WorkflowError) {
+  if (err instanceof approvalDomain.WorkflowError) {
     res.status(409).json({ error: err.message });
     return;
   }
@@ -34,7 +35,7 @@ export function createApp(db: Db = createDb()) {
 
   app.post('/expenses', (req, res) => {
     try {
-      const expense = domain.submit({
+      const expense = expenseDomain.submit({
         amount: req.body.amount,
         category: req.body.category,
         submitterId: req.body.submitterId,
@@ -58,7 +59,7 @@ export function createApp(db: Db = createDb()) {
       return;
     }
     try {
-      const updated = domain.approve(rowToExpense(row), {
+      const updated = approvalDomain.approve(rowToExpense(row), {
         id: req.body.approverId,
         role: req.body.approverRole ?? 'Employee',
       });
@@ -76,7 +77,7 @@ export function createApp(db: Db = createDb()) {
       return;
     }
     try {
-      const updated = domain.reject(
+      const updated = approvalDomain.reject(
         rowToExpense(row),
         { id: req.body.approverId, role: req.body.approverRole ?? 'Employee' },
         req.body.reason,

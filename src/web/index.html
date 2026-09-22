@@ -21,6 +21,14 @@
   <body>
     <h1>Expense Approval</h1>
 
+    <label>Current user
+      <select id="current-user" data-testid="current-user">
+        <option value="submitter-001">submitter-001</option>
+        <option value="approver-001">approver-001</option>
+        <option value="manager-001">manager-001</option>
+      </select>
+    </label>
+
     <form id="submit-form">
       <label>Amount
         <input id="amount" name="amount" type="number" step="0.01" data-testid="amount" />
@@ -31,12 +39,6 @@
           <option>Meals</option>
           <option>Equipment</option>
           <option>Other</option>
-        </select>
-      </label>
-      <label>Approve as
-        <select id="approver-role" data-testid="approver-role">
-          <option value="Employee">Employee</option>
-          <option value="Manager">Manager</option>
         </select>
       </label>
       <button type="submit" data-testid="submit">Submit expense</button>
