@@ -15,6 +15,7 @@
     "test:integration:coverage": "vitest run --config vitest.integration.config.mts --coverage",
     "test:ui": "vitest run --config vitest.ui.config.mts",
     "test:coverage": "npm run test:unit && npm run test:integration:coverage",
+    "test:mutation": "stryker run",
     "test:e2e": "playwright test --pass-with-no-tests",
     "test:e2e:report": "playwright show-report",
     "typecheck": "tsc --noEmit"
@@ -24,6 +25,8 @@
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",
+    "@stryker-mutator/core": "10.0.0",
+    "@stryker-mutator/vitest-runner": "10.0.0",
     "@types/express": "4.17.25",
     "@types/node": "22.20.1",
     "@vitest/coverage-v8": "4.1.11",
