@@ -1,7 +1,6 @@
 # Expense Approval
 
-An expense submission and approval application with domain, API, and browser
-test coverage.
+An expense submission and approval application with a starter test harness.
 
 ## Stack
 TypeScript · Express · built-in SQLite · Vitest (unit + integration) ·
@@ -10,13 +9,11 @@ Playwright (E2E). Node.js 22.5+ is required for the built-in SQLite API.
 ## Layout
 ```
 specs/                    # Test-planning workspace
-openapi.yaml              # API contract
-src/domain/               # Business rules and unit tests
-src/api/                  # Express, SQLite, and integration tests
+src/domain/               # Business rules
+src/api/                  # Express and SQLite
 src/web/                  # Browser interface
-tests/e2e/                # Playwright tests
-coverage/unit/            # Generated unit coverage
-coverage/integration/     # Generated integration coverage
+scripts/                  # Smoke validation
+tests/                    # Unit, integration, UI, and E2E test tiers
 ```
 
 ## Setup
@@ -37,9 +34,11 @@ Open http://localhost:3000.
 
 ```text
 npm run typecheck                  # TypeScript
+npm run test:smoke                 # real app smoke test
 npm run test:unit                  # unit tests + coverage/unit
 npm run test:integration           # integration tests
 npm run test:integration:coverage  # integration tests + coverage/integration
+npm run test:ui                    # UI module tests
 npm run test:e2e                   # starts the app automatically
 npm test                           # complete local validation
 ```
@@ -47,5 +46,5 @@ npm test                           # complete local validation
 Coverage reports are written to `coverage/unit` and `coverage/integration`.
 
 ## Users (for segregation-of-duties)
-Submitter = `alice`, approver = `bob`. Use the **Approve as** dropdown to
-approve as `Manager`.
+Use the current-user selector to switch between `submitter-001`,
+`approver-001`, and `manager-001`.

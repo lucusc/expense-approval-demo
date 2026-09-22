@@ -2,7 +2,8 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    include: ['src/api/**/*.integration.test.ts'],
+    include: ['tests/integration/**/*.test.ts'],
+    passWithNoTests: true,
     server: {
       deps: {
         external: ['node:sqlite', /node:sqlite/],
@@ -13,7 +14,7 @@ export default defineConfig({
       reporter: ['text', 'html', 'json-summary'],
       reportsDirectory: 'coverage/integration',
       include: ['src/api/**/*.ts', 'src/domain/**/*.ts'],
-      exclude: ['src/api/start.ts', 'src/**/*.test.ts'],
+      exclude: ['src/api/start.ts', 'tests/integration/**/*.test.ts'],
     },
   },
 });
