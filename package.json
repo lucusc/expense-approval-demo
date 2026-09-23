@@ -4,7 +4,7 @@
   "private": true,
   "description": "Expense submission and approval application.",
   "engines": {
-    "node": ">=22.5"
+    "node": ">=24.15.0"
   },
   "scripts": {
     "start": "tsx src/api/start.ts",
