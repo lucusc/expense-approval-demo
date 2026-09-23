@@ -2,7 +2,7 @@
 
 ## Stack
 
-- Node.js 22 and TypeScript
+- Node.js 24.15.0 or newer and TypeScript
 - Express
 - Node's built-in SQLite
 - Vitest
