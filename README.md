@@ -10,7 +10,7 @@ workflows and demonstrations.
 - Plain HTML and JavaScript
 - Vitest and Playwright
 
-Node.js 24 is recommended.
+Node.js 24.15.0 or newer is required.
 
 ## Setup
 
