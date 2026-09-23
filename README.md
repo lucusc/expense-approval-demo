@@ -1,50 +1,54 @@
 # Expense Approval
 
-An expense submission and approval application with a starter test harness.
+A compact expense submission and approval application built for testing
+workflows and demonstrations.
 
 ## Stack
-TypeScript · Express · built-in SQLite · Vitest (unit + integration) ·
-Playwright (E2E). Node.js 22.5+ is required for the built-in SQLite API.
 
-## Layout
-```
-specs/                    # Test-planning workspace
-src/domain/               # Business rules
-src/api/                  # Express and SQLite
-src/web/                  # Browser interface
-scripts/                  # Smoke validation
-tests/                    # Unit, integration, UI, and E2E test tiers
-```
+- TypeScript and Express
+- Node.js built-in SQLite
+- Plain HTML and JavaScript
+- Vitest and Playwright
+
+Node.js 24 is recommended.
 
 ## Setup
-```
-npm install
-npx playwright install
+
+```powershell
+npm ci
+npx playwright install chromium
 ```
 
 ## Run the application
 
-```text
+```powershell
 npm run start
 ```
 
-Open http://localhost:3000.
+Open <http://localhost:3000>. The application uses synthetic identities such
+as `submitter-001`, `approver-001`, and `manager-001`.
 
-## Validation commands
+## Test commands
+
+| Command | Purpose |
+|---|---|
+| `npm run typecheck` | Check TypeScript without emitting files |
+| `npm run test:smoke` | Start the real application and verify the stack |
+| `npm run test:unit` | Run unit tests with coverage |
+| `npm run test:integration` | Run API integration tests |
+| `npm run test:integration:coverage` | Run API integration tests with coverage |
+| `npm run test:ui` | Run browser-module integration tests |
+| `npm run test:e2e` | Run the Playwright browser suite |
+| `npm run test:coverage` | Run unit and API coverage |
+| `npm test` | Run the standard local validation sequence |
+
+## Layout
 
 ```text
-npm run typecheck                  # TypeScript
-npm run test:smoke                 # real app smoke test
-npm run test:unit                  # unit tests + coverage/unit
-npm run test:integration           # integration tests
-npm run test:integration:coverage  # integration tests + coverage/integration
-npm run test:ui                    # UI module tests
-npm run test:e2e                   # starts the app automatically
-npm test                           # complete local validation
+src/domain/    Domain model and policies
+src/api/       Express server and SQLite persistence
+src/web/       Browser interface
+scripts/       Stack smoke checks
+tests/         Automated test suites and shared test data
+specs/         Test-planning workspace
 ```
-
-Coverage reports are written to `coverage/unit` and `coverage/integration`.
-
-## Users (for segregation-of-duties)
-Use the current-user selector to switch between `submitter-001`,
-`approver-001`, and `manager-001`.
