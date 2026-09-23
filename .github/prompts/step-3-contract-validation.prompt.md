@@ -2,7 +2,9 @@
 description: Validate the API contract
 ---
 
-Compare the implemented API and reviewed integration tests with `openapi.yaml`.
-Identify contract coverage gaps by operation and requirement ID, then propose
-the smallest tests needed to close them. Take all expected values from the
-contract. Wait for review before adding multiple tests.
+Propose the smallest contract test list by operation and requirement ID, then
+wait for review before writing tests. For UI approval coverage, execute the
+real browser module under jsdom, capture its outgoing request method and path,
+normalize the concrete expense ID to `{id}`, and validate that operation
+against `openapi.yaml`. Take all expected behavior from the contract rather
+than application code.
