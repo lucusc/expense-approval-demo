@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 import { parse } from 'yaml';
 import { expect, test, vi } from 'vitest';
+import { expense, user } from '../builders/expense';
 
 test('R4 UI approval request method and path exist in the API contract', async () => {
   const html = readFileSync('src/web/index.html', 'utf8').replace(
@@ -9,15 +10,7 @@ test('R4 UI approval request method and path exist in the API contract', async (
     '',
   );
   const app = readFileSync('src/web/app.js', 'utf8');
-  const pending = {
-    id: 101,
-    amount: 75,
-    category: 'Travel',
-    submitterId: 'submitter-001',
-    status: 'Pending',
-    reason: null,
-    approverId: null,
-  };
+  const pending = expense();
   const requests: Array<{ url: string; method: string }> = [];
   const fetch = vi.fn(async (url: string, options?: RequestInit) => {
     requests.push({ url, method: options?.method ?? 'GET' });
@@ -28,7 +21,7 @@ test('R4 UI approval request method and path exist in the API contract', async (
   dom.window.eval(app);
 
   await vi.waitFor(() => expect(dom.window.document.querySelector('.approve')).not.toBeNull());
-  (dom.window.document.getElementById('current-user') as HTMLSelectElement).value = 'approver-001';
+  (dom.window.document.getElementById('current-user') as HTMLSelectElement).value = user().id;
   (dom.window.document.querySelector('.approve') as HTMLButtonElement).click();
   await vi.waitFor(() => expect(requests.some((request) => request.method === 'POST')).toBe(true));
 

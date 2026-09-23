@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 import { expect, test, vi } from 'vitest';
+import { expense, user } from '../builders/expense.ts';
 
 const html = readFileSync('src/web/index.html', 'utf8').replace(
   '<script src="app.js"></script>',
@@ -9,15 +10,7 @@ const html = readFileSync('src/web/index.html', 'utf8').replace(
 const app = readFileSync('src/web/app.js', 'utf8');
 
 test('R4 a successful approval is shown in the UI', async () => {
-  const pending = {
-    id: 101,
-    amount: 75,
-    category: 'Travel',
-    submitterId: 'submitter-001',
-    status: 'Pending',
-    reason: null,
-    approverId: null,
-  };
+  const pending = expense();
   let approved = false;
   const fetch = vi.fn(async (url, options) => {
     if (options?.method === 'POST') {
@@ -34,7 +27,7 @@ test('R4 a successful approval is shown in the UI', async () => {
   dom.window.eval(app);
 
   await vi.waitFor(() => expect(dom.window.document.querySelector('.approve')).not.toBeNull());
-  dom.window.document.getElementById('current-user').value = 'approver-001';
+  dom.window.document.getElementById('current-user').value = user().id;
   dom.window.document.querySelector('.approve').click();
 
   await vi.waitFor(() =>
