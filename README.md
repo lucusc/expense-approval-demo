@@ -4,7 +4,7 @@ An expense submission and approval application with a starter test harness.
 
 ## Stack
 TypeScript · Express · built-in SQLite · Vitest (unit + integration) ·
-Playwright (E2E). Node.js 22.5+ is required for the built-in SQLite API.
+Playwright (E2E). Node.js 24.15.0 or newer is required.
 
 ## Layout
 ```
